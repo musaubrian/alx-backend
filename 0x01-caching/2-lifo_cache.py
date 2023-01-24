@@ -3,7 +3,6 @@
 Module defines a class LIFOCache that inherits from BaseCaching 
 and is a caching system
 """
-from types import NoneType
 from base_caching import BaseCaching
 
 

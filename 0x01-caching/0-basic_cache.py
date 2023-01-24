@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-
+Module defines a class BasicCache that inherits from class BaseCache
+and is a caching class
 """
 from base_caching import BaseCaching
 
