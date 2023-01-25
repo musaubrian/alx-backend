@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Module defines a class LIFOCache that inherits from BaseCaching 
+Module defines a class LIFOCache that inherits from BaseCaching
 and is a caching system
 """
 from base_caching import BaseCaching

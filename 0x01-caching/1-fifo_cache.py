@@ -28,7 +28,7 @@ class FIFOCache(BaseCaching):
 
             key_to_remove = sorted_dict[0]
             self.cache_data.pop(key_to_remove)
-            print(f"DISCARD: {key_to_remove}\n")
+            print(f"DISCARD: {key_to_remove}")
 
     def get(self, key):
         """
@@ -37,4 +37,4 @@ class FIFOCache(BaseCaching):
         if key is None or key not in self.cache_data:
             return None
 
-        return self.cache_data[key]
+        return self.cache_data.get(key)
