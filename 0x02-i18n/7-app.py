@@ -5,6 +5,7 @@ Module emulates a user login system
 from typing import Union
 from flask import Flask, render_template, request
 from flask_babel import Babel
+import pytz
 
 
 users = {
@@ -27,7 +28,7 @@ class Config(object):
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
-app.config.from_object("6-app.Config")
+app.config.from_object("7-app.Config")
 
 
 @app.route("/", strict_slashes=False)
@@ -37,7 +38,7 @@ def hello_world() -> str:
     `Welcome to Holberton` as a title
     and `Hello world`as a header
     """
-    return render_template("6-index.html")
+    return render_template("7-index.html")
 
 
 @babel.localeselector
@@ -83,6 +84,27 @@ def before_request() -> None:
     and set it as a global on flask.g.user.
     """
     g.user = get_user()
+
+
+@babel.timezoneselector
+def get_timezone():
+    """
+    returns a timezone
+    ---
+    Gets timezone parameter in URL parameters or from user settings
+    validate that it is a valid time zone
+    """
+    user_timezone = request.args.get("timezone", None)
+    if not user_timezone and g.user:
+        user_timezone = g.user.get("timezone")
+
+    if user_timezone:
+        try:
+            return pytz.timezone(user_timezone)
+        except pytz.exceptions.UnknownTimeZoneError:
+            pass
+
+    return pytz.timezone(app.config["BABEL_DEFAULT_TIMEZONE"])
 
 
 if __name__ == "__main__":
