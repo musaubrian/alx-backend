@@ -3,7 +3,7 @@
 Module emulates a user login system
 """
 from typing import Union
-from flask import Flask, request
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
 
@@ -31,7 +31,7 @@ app.config.from_object("5-app.Config")
 
 
 @app.route("/", strict_slashes=False)
-def hello_world():
+def hello_world() -> str:
     """
     returns a html template that prints
     `Welcome to Holberton` as a title
@@ -41,7 +41,7 @@ def hello_world():
 
 
 @babel.localeselector
-def get_locale() -> Union[str, None]:
+def get_locale():
     """
     Check if the incoming request contains locale argument
     ----
@@ -52,9 +52,14 @@ def get_locale() -> Union[str, None]:
     if "locale" in request.args:
         if request.args["locale"] in app.config["LANGUAGES"]:
             return request.args["locale"]
-
-    best_match = request.accept_languages.best_match(app.config["LANGUAGES"])
-    return best_match
+    elif (
+        g.user
+        and g.user.get("locale")
+        and g.user.get("locale") in app.config["LANGUAGES"]
+    ):
+        return g.user.get("locale")
+    else:
+        return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
 def get_user() -> Union[dict, None]:
