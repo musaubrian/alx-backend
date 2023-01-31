@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def hello_world() -> str:
+def hello_world():
     """
     returns a html template that prints
     `Welcome to Holberton` as a title
