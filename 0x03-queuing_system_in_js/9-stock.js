@@ -1,12 +1,12 @@
+import { createClient } from 'redis';
+import { promisify } from 'util';
 const express = require('express');
-const redis = require('redis');
-const util = require('util');
 
 const app = express();
 const port = 1245;
 
-const client = redis.createClient();
-const getAsync = util.promisify(client.get).bind(client);
+const client = createClient();
+const getAsync = promisify(client.get).bind(client);
 
 const listProducts = [
   {

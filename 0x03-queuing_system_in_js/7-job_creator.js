@@ -1,5 +1,5 @@
-const kue = require('kue');
-const queue = kue.createQueue();
+import { createQueue } from 'kue';
+const queue = createQueue();
 
 const jobs = [
   {

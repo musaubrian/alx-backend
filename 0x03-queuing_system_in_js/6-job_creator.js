@@ -1,10 +1,10 @@
-const kue = require('kue');
+import { createQueue } from 'kue';
 
 const jobObject = {
   phoneNumber: '4153518780',
   message: 'This is the code to verify your account'
 };
-const queue = kue.createQueue();
+const queue = createQueue();
 const job = queue.create('push_notification_code', jobObject).save();
 
 job.on('enqueue', () => {

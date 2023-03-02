@@ -1,5 +1,6 @@
-const kue = require('kue');
-const queue = kue.createQueue();
+import { createQueue } from 'kue';
+
+const queue = createQueue();
 
 const blackList = ['4153518780', '4153518781'];
 
